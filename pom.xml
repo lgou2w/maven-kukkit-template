@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.lgou2w</groupId>
+  <artifactId>maven-kotlin-template</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+  <name>maven-kotlin-template</name>
+  <description>maven-kotlin-template</description>
+  <url>https://github.com/lgou2w/maven-kotlin-template</url>
+
+  <issueManagement>
+    <url>https://github.com/lgou2w/maven-kotlin-template/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+
+  <scm>
+    <connection>scm:git:git@github.com:lgou2w/maven-kotlin-template.git</connection>
+    <developerConnection>scm:git:git@github.com:lgou2w/maven-kotlin-template.git</developerConnection>
+    <url>git@github.com:lgou2w/maven-kotlin-template.git</url>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>lgou2w</id>
+      <name>lgou2w</name>
+      <email>lgou2w@hotmail.com</email>
+      <url>https://lgou2w.com</url>
+      <timezone>+8</timezone>
+      <roles>
+        <role>Owner</role>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <properties>
+    <kotlin.version>1.3.61</kotlin.version>
+    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <!-- jcenter -->
+    <repository>
+      <id>jcenter</id>
+      <url>https://jcenter.bintray.com/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- Kotlin -->
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- PowerMockito -->
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-mockito2</artifactId>
+      <version>2.0.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>2.0.4</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Mockito-Kotlin -->
+    <dependency>
+      <groupId>com.nhaarman.mockitokotlin2</groupId>
+      <artifactId>mockito-kotlin</artifactId>
+      <version>2.2.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Kluent -->
+    <dependency>
+      <groupId>org.amshove.kluent</groupId>
+      <artifactId>kluent</artifactId>
+      <version>1.59</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    <plugins>
+      <!-- Kotlin Plugin -->
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <jvmTarget>${maven.compiler.target}</jvmTarget>
+              <sourceDirs>
+                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+            <configuration>
+              <jvmTarget>${maven.compiler.target}</jvmTarget>
+              <sourceDirs>
+                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Source Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- git-commit-id -->
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.0.0</version>
+        <executions>
+          <execution>
+            <id>git-info</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <injectAllReactorProjects>true</injectAllReactorProjects>
+          <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+          <verbose>true</verbose>
+          <generateGitPropertiesFile>true</generateGitPropertiesFile>
+          <gitDescribe>
+            <skip>false</skip>
+            <always>false</always>
+            <abbrev>7</abbrev>
+            <forceLongFormat>false</forceLongFormat>
+          </gitDescribe>
+        </configuration>
+      </plugin>
+      <!-- Shade -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+          <!--suppress UnresolvedMavenProperty -->
+          <finalName>${project.artifactId}-${project.version}-${git.commit.id.abbrev}</finalName>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <manifestEntries>
+                <Implementation-Title>${project.artifactId}</Implementation-Title>
+                <!--suppress UnresolvedMavenProperty -->
+                <Implementation-Version>git-${git.commit.id.abbrev}</Implementation-Version>
+                <Main-Class>com.lgou2w.MainKt</Main-Class>
+              </manifestEntries>
+            </transformer>
+          </transformers>
+        </configuration>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources/</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+
+</project>
