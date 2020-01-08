@@ -1,0 +1,12 @@
+name: maven-kukkit-template
+prefix: maven-kukkit-template
+api-version: 1.13
+main: com.lgou2w.Main
+version: ${project.version}
+git-version: ${git.commit.id.abbrev}
+load: POSTWORLD
+author: lgou2w
+authors: [lgou2w]
+website: https://lgou2w.com
+github: https://github.com/lgou2w/maven-kukkit-template
+description: A maven template for kotlin and bukkit development

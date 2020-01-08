@@ -1,3 +1,10 @@
 package com.lgou2w
 
-fun main() = println("HelloWorld!")
+import org.bukkit.plugin.java.JavaPlugin
+
+class Main : JavaPlugin() {
+
+  override fun onEnable() {
+    println("HelloWorld!")
+  }
+}
